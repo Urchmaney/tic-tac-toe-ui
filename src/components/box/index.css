@@ -1,0 +1,6 @@
+.box {
+  width: 40px;
+  display: block;
+  height: 40px;
+  border: 1px solid gray;
+}
