@@ -1,6 +1,5 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Board from './components/board';
 import App from './App';
 import { ActionCableProvider } from 'react-actioncable-provider';
 // import ActionCableProvider from '@thrash-industries/react-actioncable-provider';
