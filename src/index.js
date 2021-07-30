@@ -2,13 +2,14 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import Board from './components/board';
+import App from './App';
 import { ActionCableProvider } from 'react-actioncable-provider';
 // import ActionCableProvider from '@thrash-industries/react-actioncable-provider';
 
 ReactDOM.render(
   <React.StrictMode>
-    <ActionCableProvider url=" http://localhost:3000/cable">
-      <Board />
+    <ActionCableProvider>
+      <App />
     </ActionCableProvider>
   </React.StrictMode>,
   document.getElementById('root')

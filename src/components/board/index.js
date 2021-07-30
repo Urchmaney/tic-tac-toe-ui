@@ -1,34 +1,14 @@
-import React, { useState } from 'react';
+import React from 'react';
+import Container from 'react-bootstrap/Container';
 import Box from '../box';
-import { ActionCable } from 'react-actioncable-provider'
-import { makeMoveAPI } from '../../services/api';
 import './index.css'
-// import ActionCableConsumer from '@thrash-industries/react-actioncable-provider';
 
-const Board = () => {
-  const [board, setBoard] = useState(["", "", "", "", "", "", "", "", ""]);
-  const playerLetter = "X";
-  const [playingTurn, setPlayingTurn] = useState(true);
-
-  const RegisterMove = (i, moveLetter) => {
-    setBoard(board.map((x, index) => index === i ? moveLetter : x ));
-  }
-  const makeMove = (moveIndex) => {
-    RegisterMove(moveIndex, playerLetter);
-    makeMoveAPI({ game_id: 1, letter: playerLetter, position: moveIndex, order: 4 });
-  }
-  const renderBox = (i) => (<Box letter={board[i]} onClick={() => { makeMove(i, playerLetter) }} />)
-  const recieveMove = ({ letter, position }) => {
-    RegisterMove(position, letter);
-  }
+const Board = ({ board, moveFunc, disabled }) => {
+  const renderBox = (i) => (<Box letter={board[i]} onClick={() => { moveFunc(i) }} />)
 
   return <>
-    <ActionCable
-      channel= {{ channel: 'GameChannel' }}
-      onConnected={() => console.log("connected") }
-      onReceived={recieveMove}
-    >
-      <div className="board">
+    <div className="board">
+      <Container>
         <div className="board-row">
           {renderBox(0)}
           {renderBox(1)}
@@ -44,8 +24,8 @@ const Board = () => {
           {renderBox(7)}
           {renderBox(8)}
         </div>
-      </div>
-    </ActionCable>
+      </Container>
+    </div>
   </>
 }
 

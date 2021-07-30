@@ -1,3 +1,12 @@
 .board-row {
   display: flex;
 }
+
+.board {
+  width: 40%;
+  margin: 0 auto;
+}
+
+.disabled-board {
+  pointer-events: none;
+}
