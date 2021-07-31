@@ -18,7 +18,9 @@ const Game = (props) => {
   const [opponent, setOpponent] = useState("");
   const [playerLetter, setPlayerLetter] = useState("");
   const [winner, setWinner] = useState("");
+  const [toPlay, setToPlay] = useState("");
 
+  console.log({toPlay, playerLetter})
   const history = useHistory();
 
   const RegisterMove = (i, moveLetter) => {
@@ -37,9 +39,11 @@ const Game = (props) => {
     console.log({ domain, data, playerLetter, check: data.letter !== playerLetter })
     if (domain === 'move') {
       RegisterMove(data.position, data.letter);
+      setToPlay(data.letter === 'X' ? 'O' : 'X');
     }
     if (domain === 'join') {
-      setOpponent(data.second_player);
+      setOpponent(`${data.second_player} (${data.letter})`);
+      setToPlay(data.letter === 'X' ? 'O' : 'X');
     }
     if (domain === 'winner') {
       setWinner(data.result)
@@ -55,7 +59,6 @@ const Game = (props) => {
   }, [playerLetter, playerName]);
 
   useEffect(() => {
-    console.log(playerLetter)
     props.cable.subscriptions.create({
       channel: 'GameChannel', game_id: id
     }, {
@@ -75,7 +78,7 @@ const Game = (props) => {
             </div>
           </Card.Header>
           <Card.Body>
-            <Board board={board} moveFunc={makeMove} />
+            <Board board={board} moveFunc={makeMove} disabled={toPlay !== playerLetter} />
           </Card.Body>
         </Card>
       </Container>

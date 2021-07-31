@@ -7,7 +7,7 @@ const Board = ({ board, moveFunc, disabled }) => {
   const renderBox = (i) => (<Box letter={board[i]} onClick={() => { moveFunc(i) }} />)
 
   return <>
-    <div className="board">
+    <div className={`board ${disabled ? 'disabled-board' : ''}`}>
       <Container>
         <div className="board-row">
           {renderBox(0)}
