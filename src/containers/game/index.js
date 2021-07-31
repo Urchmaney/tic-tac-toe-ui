@@ -30,6 +30,7 @@ const Game = (props) => {
   }
 
   const makeMove = (moveIndex) => {
+    if (board[moveIndex]) return;
     RegisterMove(moveIndex, playerLetter);
     makeMoveAPI(id, { letter: playerLetter, game_id: id, position: moveIndex });
   }
