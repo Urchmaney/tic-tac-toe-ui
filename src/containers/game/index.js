@@ -6,7 +6,7 @@ import Card from 'react-bootstrap/Card';
 import Row from "react-bootstrap/Row";
 import Button from "react-bootstrap/Button";
 import { getGameAPI, makeMoveAPI } from '../../services/api';
-import Board from '../board';
+import Board from '../../components/board';
 import './index.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 

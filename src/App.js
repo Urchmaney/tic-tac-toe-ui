@@ -5,8 +5,8 @@ import {
   Route,
   Link
 } from "react-router-dom";
-import Game from './components/game';
-import Home from './components/home';
+import Game from './containers/game';
+import Home from './containers/home';
 import ActionCable from 'actioncable';
 
 
