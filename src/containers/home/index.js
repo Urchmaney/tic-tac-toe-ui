@@ -18,7 +18,6 @@ const Home = () => {
   const createGame = (e) => {
     e.preventDefault();
     createGameAPI({ first_player: playerName, first_player_letter: playerLetter }, (data) => {
-      console.log('Goal Created');
       history.push(`/game/${data.id}`)
     })
   }
@@ -26,7 +25,7 @@ const Home = () => {
   const joinGame = (e) => {
     e.preventDefault();
     JoinGameAPI({ second_player: playerName }, gameId, (data) => {
-      console.log('Joined Game');
+
       history.push(`/game/${data.id}?state=join`)
     })
 
@@ -34,45 +33,33 @@ const Home = () => {
 
   console.log({ playerLetter, playerName, gameId });
   return (<>
-    <Container>
-      <Form className="mt-4">
-        <div className="d-grid gap-3 w-50">
-          <Row>
-            <Form.Control placeholder="Player Name" type="text" value={playerName} onChange={(e) => { setPlayerName(e.target.value) }} required />
-          </Row>
-          <Row>
-            <Form.Label>Choose letter</Form.Label>
-            <Form.Select value={playerLetter} onChange={(e) => { setPlayerLetter(e.target.value) }}>
-              <option value="O">O</option>
-              <option value="X">X</option>
-            </Form.Select>
-          </Row>
-
-
-          <Row className="justify-content-md-center">
-            <Button variant="primary" size="lg" onClick={createGame}>
-              Create Game
-        </Button>
-          </Row>
-        </div>
-      </Form>
-      <Row className="mt-3 w-50">
-        <Button variant="secondary" size="lg" onClick={() => { setShowModal(true) }}>
+    <Container className="d-flex justify-content-center">
+      <Row className="mt-4 w-50">
+        <Form>
+          <div>
+            <Row>
+              <Form.Control placeholder="Player Name" type="text" value={playerName} onChange={(e) => { setPlayerName(e.target.value) }} required />
+            </Row>
+            <Row className="mt-2">
+              <Form.Label>Choose letter</Form.Label>
+              <Form.Select value={playerLetter} onChange={(e) => { setPlayerLetter(e.target.value) }}>
+                <option value="O">O</option>
+                <option value="X">X</option>
+              </Form.Select>
+            </Row>
+            <Row>
+              <Button variant="primary" className="mt-3" size="lg" onClick={createGame}>
+                Create Game
+               </Button>
+            </Row>
+          </div>
+        </Form>
+        <Button className="mt-5" variant="secondary" size="lg" onClick={() => { setShowModal(true) }}>
           Join Game
-    </Button>
+        </Button>
       </Row>
     </Container>
 
-    {/* 
-    <form>
-      <input value={playerName} onChange={(e) => { setPlayerName(e.target.value) }} type="text" required /> <br />
-      <select value={playerLetter} onChange={(e) => { setPlayerLetter(e.target.value) }}>
-        <option value="O">O</option>
-        <option value="X">X</option>
-      </select>
-      <button onClick={createGame}> Start Game</button>
-    </form>
-    <button onClick={() => { setShowModal(true) }}>Join Game</button> */}
     <Modal onHide={() => { setShowModal(false) }} show={showModal}>
       <Modal.Header>
         <Modal.Title>
@@ -80,15 +67,21 @@ const Home = () => {
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <div>
-          <label htmlFor="pName">Player Name</label>
-          <input name="pName" type="text" value={playerName} onChange={(e) => { setPlayerName(e.target.value) }} /> <br />
-          <label htmlFor="game">Game Id</label>
-          <input name="game" type="number" value={gameId} onChange={(e) => { setGameId(e.target.value) }} />
-        </div>
+        <Container>
+          <Row>
+            <Form.Label htmlFor="pName">Player Name</Form.Label>
+            <Form.Control name="pName" type="text" value={playerName} onChange={(e) => { setPlayerName(e.target.value) }} /> <br />
+          </Row>
+          <Row>
+            <Form.Label htmlFor="pName">Game</Form.Label>
+            <Form.Control name="game" type="number" value={gameId} onChange={(e) => { setGameId(e.target.value) }} />
+          </Row>
+        </Container>
       </Modal.Body>
       <Modal.Footer>
-        <button onClick={joinGame}> Join </button>
+        <Button variant="secondary" size="lg" onClick={joinGame}>
+          Join Game
+        </Button>
       </Modal.Footer>
     </Modal>
   </>)

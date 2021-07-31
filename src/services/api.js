@@ -20,7 +20,6 @@ const createGameAPI = (gameData, cb = () => {}) => {
     },
     body: JSON.stringify(gameData)
   }).then(y => y.json()).then(x => {
-    console.log(x);
     cb(x);
   }).catch(err => console.log(err));
 }
