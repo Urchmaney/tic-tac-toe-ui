@@ -13,14 +13,13 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 const Game = (props) => {
   const queryString = new URLSearchParams(window.location.search).get('state');
   let { id } = useParams();
-  const [board, setBoard] = useState(["", "", "", "", "", "", "", "", ""]);
+  const [board, setBoard] = useState(Array(9).fill(null));
   const [playerName, setPlayerName] = useState("");
   const [opponent, setOpponent] = useState("");
   const [playerLetter, setPlayerLetter] = useState("");
   const [winner, setWinner] = useState("");
   const [toPlay, setToPlay] = useState("");
 
-  console.log({toPlay, playerLetter})
   const history = useHistory();
 
   const RegisterMove = (i, moveLetter) => {
